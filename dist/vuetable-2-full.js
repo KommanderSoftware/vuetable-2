@@ -2860,7 +2860,9 @@ exports.default = {
       }
 
       this.currentPage = 1;
-      this.loadData();
+      if (this.apiMode) {
+        this.loadData();
+      }
     },
     multiColumnSort: function multiColumnSort(field) {
       var i = this.currentSortOrderPosition(field);
@@ -3217,6 +3219,9 @@ exports.default = {
     },
     'apiUrl': function apiUrl(newVal, oldVal) {
       if (this.reactiveApiUrl && newVal !== oldVal) this.refresh();
+    },
+    'data': function data(newVal, oldVal) {
+      this.setData(newVal);
     }
   }
 };

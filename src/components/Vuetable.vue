@@ -869,7 +869,7 @@ export default {
     callDataManager () {
       if (this.dataManager === null && this.data === null) return
 
-      if (Array.isArray(this.data)) {
+      if (Array.isArray(this.data) || (this.data && this.data.data && Array.isArray(this.data.data))) {
         console.log('data mode: array')
         this.setData(this.data)
       } else {

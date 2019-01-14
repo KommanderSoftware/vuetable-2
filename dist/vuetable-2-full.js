@@ -2392,13 +2392,13 @@ exports.default = {
     },
     apiUrl: {
       type: String,
-      default: ''
+      default: ""
     },
     httpMethod: {
       type: String,
-      default: 'get',
+      default: "get",
       validator: function validator(value) {
-        return ['get', 'post'].indexOf(value) > -1;
+        return ["get", "post"].indexOf(value) > -1;
       }
     },
     reactiveApiUrl: {
@@ -2427,19 +2427,19 @@ exports.default = {
     },
     dataPath: {
       type: String,
-      default: 'data'
+      default: "data"
     },
     paginationPath: {
       type: [String],
-      default: 'links.pagination'
+      default: "links.pagination"
     },
     queryParams: {
       type: Object,
       default: function _default() {
         return {
-          sort: 'sort',
-          page: 'page',
-          perPage: 'per_page'
+          sort: "sort",
+          page: "page",
+          perPage: "per_page"
         };
       }
     },
@@ -2486,42 +2486,42 @@ exports.default = {
 
     multiSortKey: {
       type: String,
-      default: 'alt'
+      default: "alt"
     },
 
     rowClassCallback: {
       type: [String, Function],
-      default: ''
+      default: ""
     },
     rowClass: {
       type: [String, Function],
-      default: ''
+      default: ""
     },
     detailRowComponent: {
       type: String,
-      default: ''
+      default: ""
     },
     detailRowTransition: {
       type: String,
-      default: ''
+      default: ""
     },
     trackBy: {
       type: String,
-      default: 'id'
+      default: "id"
     },
     css: {
       type: Object,
       default: function _default() {
         return {
-          tableClass: 'ui blue selectable celled stackable attached table',
-          loadingClass: 'loading',
-          ascendingIcon: 'blue chevron up icon',
-          descendingIcon: 'blue chevron down icon',
-          ascendingClass: 'sorted-asc',
-          descendingClass: 'sorted-desc',
-          sortableIcon: '',
-          detailRowClass: 'vuetable-detail-row',
-          handleIcon: 'grey sidebar icon'
+          tableClass: "ui blue selectable celled stackable attached table",
+          loadingClass: "loading",
+          ascendingIcon: "blue chevron up icon",
+          descendingIcon: "blue chevron down icon",
+          ascendingClass: "sorted-asc",
+          descendingClass: "sorted-desc",
+          sortableIcon: "",
+          detailRowClass: "vuetable-detail-row",
+          handleIcon: "grey sidebar icon"
         };
       }
     },
@@ -2536,7 +2536,7 @@ exports.default = {
     noDataTemplate: {
       type: String,
       default: function _default() {
-        return 'No Data Available';
+        return "No Data Available";
       }
     },
     showSortIcons: {
@@ -2546,7 +2546,7 @@ exports.default = {
   },
   data: function data() {
     return {
-      eventPrefix: 'vuetable:',
+      eventPrefix: "vuetable:",
       tableFields: [],
       tableData: null,
       tablePagination: null,
@@ -2559,7 +2559,7 @@ exports.default = {
     this.normalizeFields();
     this.normalizeSortOrder();
     this.$nextTick(function () {
-      this.fireEvent('initialized', this.tableFields);
+      this.fireEvent("initialized", this.tableFields);
     });
 
     if (this.loadOnStart) {
@@ -2569,12 +2569,12 @@ exports.default = {
 
   computed: {
     useDetailRow: function useDetailRow() {
-      if (this.tableData && this.tableData[0] && this.detailRowComponent !== '' && typeof this.tableData[0][this.trackBy] === 'undefined') {
-        this.warn('You need to define unique row identifier in order for detail-row feature to work. Use `track-by` prop to define one!');
+      if (this.tableData && this.tableData[0] && this.detailRowComponent !== "" && typeof this.tableData[0][this.trackBy] === "undefined") {
+        this.warn("You need to define unique row identifier in order for detail-row feature to work. Use `track-by` prop to define one!");
         return false;
       }
 
-      return this.detailRowComponent !== '';
+      return this.detailRowComponent !== "";
     },
     countVisibleFields: function countVisibleFields() {
       return this.tableFields.filter(function (field) {
@@ -2615,7 +2615,7 @@ exports.default = {
   },
   methods: {
     normalizeFields: function normalizeFields() {
-      if (typeof this.fields === 'undefined') {
+      if (typeof this.fields === "undefined") {
         this.warn('You need to provide "fields" prop.');
         return;
       }
@@ -2624,12 +2624,12 @@ exports.default = {
       var self = this;
       var obj = void 0;
       this.fields.forEach(function (field, i) {
-        if (typeof field === 'string') {
+        if (typeof field === "string") {
           obj = {
             name: field,
             title: self.setTitle(field),
-            titleClass: '',
-            dataClass: '',
+            titleClass: "",
+            dataClass: "",
             callback: null,
             visible: true
           };
@@ -2638,9 +2638,9 @@ exports.default = {
             name: field.name,
             title: field.title === undefined ? self.setTitle(field.name) : field.title,
             sortField: field.sortField,
-            titleClass: field.titleClass === undefined ? '' : field.titleClass,
-            dataClass: field.dataClass === undefined ? '' : field.dataClass,
-            callback: field.callback === undefined ? '' : field.callback,
+            titleClass: field.titleClass === undefined ? "" : field.titleClass,
+            dataClass: field.dataClass === undefined ? "" : field.dataClass,
+            callback: field.callback === undefined ? "" : field.callback,
             visible: field.visible === undefined ? true : field.visible
           };
         }
@@ -2654,35 +2654,35 @@ exports.default = {
         return;
       }
 
-      this.fireEvent('loading');
+      this.fireEvent("loading");
 
       this.tableData = this.getObjectValue(data, this.dataPath, null);
       this.tablePagination = this.getObjectValue(data, this.paginationPath, null);
 
       this.$nextTick(function () {
-        this.fireEvent('pagination-data', this.tablePagination);
-        this.fireEvent('loaded');
+        this.fireEvent("pagination-data", this.tablePagination);
+        this.fireEvent("loaded");
       });
     },
     setTitle: function setTitle(str) {
       if (this.isSpecialField(str)) {
-        return '';
+        return "";
       }
 
       return this.titleCase(str);
     },
     getTitle: function getTitle(field) {
-      if (typeof field.title === 'function') return field.title();
+      if (typeof field.title === "function") return field.title();
 
-      return typeof field.title === 'undefined' ? field.name.replace('.', ' ') : field.title;
+      return typeof field.title === "undefined" ? field.name.replace(".", " ") : field.title;
     },
     renderTitle: function renderTitle(field) {
       var title = this.getTitle(field);
 
       if (title.length > 0 && this.isInCurrentSortGroup(field) || this.hasSortableIcon(field)) {
-        var style = 'opacity:' + this.sortIconOpacity(field) + ';position:relative;float:right';
-        var iconTag = this.showSortIcons ? this.renderIconTag(['sort-icon', this.sortIcon(field)], 'style="' + style + '"') : '';
-        return title + ' ' + iconTag;
+        var style = "opacity:" + this.sortIconOpacity(field) + ";position:relative;float:right";
+        var iconTag = this.showSortIcons ? this.renderIconTag(["sort-icon", this.sortIcon(field)], "style=\"" + style + "\"") : "";
+        return title + " " + iconTag;
       }
 
       return title;
@@ -2691,10 +2691,10 @@ exports.default = {
       return this.tablePagination ? this.tablePagination.from + index : index;
     },
     renderNormalField: function renderNormalField(field, item) {
-      return this.hasCallback(field) ? this.callCallback(field, item) : this.getObjectValue(item, field.name, '');
+      return this.hasCallback(field) ? this.callCallback(field, item) : this.getObjectValue(item, field.name, "");
     },
     isSpecialField: function isSpecialField(fieldName) {
-      return fieldName.slice(0, 2) === '__';
+      return fieldName.slice(0, 2) === "__";
     },
     titleCase: function titleCase(str) {
       return str.replace(/\w+/g, function (txt) {
@@ -2702,12 +2702,12 @@ exports.default = {
       });
     },
     camelCase: function camelCase(str) {
-      var delimiter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '_';
+      var delimiter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "_";
 
       var self = this;
       return str.split(delimiter).map(function (item) {
         return self.titleCase(item);
-      }).join('');
+      }).join("");
     },
     notIn: function notIn(str, arr) {
       return arr.indexOf(str) === -1;
@@ -2721,9 +2721,9 @@ exports.default = {
         return;
       }
 
-      this.fireEvent('loading');
+      this.fireEvent("loading");
 
-      this.httpOptions['params'] = this.getAllQueryParams();
+      this.httpOptions["params"] = this.getAllQueryParams();
 
       this.fetch(this.apiUrl, this.httpOptions).then(success, failed).catch(function () {
         return failed();
@@ -2733,7 +2733,7 @@ exports.default = {
       return this.httpFetch ? this.httpFetch(apiUrl, httpOptions) : _axios2.default[this.httpMethod](apiUrl, httpOptions);
     },
     loadSuccess: function loadSuccess(response) {
-      this.fireEvent('load-success', response);
+      this.fireEvent("load-success", response);
 
       var body = this.transform(response.data);
 
@@ -2741,21 +2741,21 @@ exports.default = {
       this.tablePagination = this.getObjectValue(body, this.paginationPath, null);
 
       if (this.tablePagination === null) {
-        this.warn('vuetable: pagination-path "' + this.paginationPath + '" not found. ' + 'It looks like the data returned from the sever does not have pagination information ' + "or you may have set it incorrectly.\n" + 'You can explicitly suppress this warning by setting pagination-path="".');
+        this.warn('vuetable: pagination-path "' + this.paginationPath + '" not found. ' + "It looks like the data returned from the sever does not have pagination information " + "or you may have set it incorrectly.\n" + 'You can explicitly suppress this warning by setting pagination-path="".');
       }
 
       this.$nextTick(function () {
-        this.fireEvent('pagination-data', this.tablePagination);
-        this.fireEvent('loaded');
+        this.fireEvent("pagination-data", this.tablePagination);
+        this.fireEvent("loaded");
       });
     },
     loadFailed: function loadFailed(response) {
-      console.error('load-error', response);
-      this.fireEvent('load-error', response);
-      this.fireEvent('loaded');
+      console.error("load-error", response);
+      this.fireEvent("load-error", response);
+      this.fireEvent("loaded");
     },
     transform: function transform(data) {
-      var func = 'transform';
+      var func = "transform";
 
       if (this.parentFunctionExists(func)) {
         return this.$parent[func].call(this.$parent, data);
@@ -2764,7 +2764,7 @@ exports.default = {
       return data;
     },
     parentFunctionExists: function parentFunctionExists(func) {
-      return func !== '' && typeof this.$parent[func] === 'function';
+      return func !== "" && typeof this.$parent[func] === "function";
     },
     callParentFunction: function callParentFunction(func, args) {
       var defaultValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
@@ -2796,41 +2796,41 @@ exports.default = {
       return params;
     },
     getSortParam: function getSortParam() {
-      if (!this.sortOrder || this.sortOrder.field == '') {
-        return '';
+      if (!this.sortOrder || this.sortOrder.field == "") {
+        return "";
       }
 
-      if (typeof this.$parent['getSortParam'] == 'function') {
-        return this.$parent['getSortParam'].call(this.$parent, this.sortOrder);
+      if (typeof this.$parent["getSortParam"] == "function") {
+        return this.$parent["getSortParam"].call(this.$parent, this.sortOrder);
       }
 
       return this.getDefaultSortParam();
     },
     getDefaultSortParam: function getDefaultSortParam() {
-      var result = '';
+      var result = "";
 
       for (var i = 0; i < this.sortOrder.length; i++) {
-        var fieldName = typeof this.sortOrder[i].sortField === 'undefined' ? this.sortOrder[i].field : this.sortOrder[i].sortField;
+        var fieldName = typeof this.sortOrder[i].sortField === "undefined" ? this.sortOrder[i].field : this.sortOrder[i].sortField;
 
-        result += fieldName + '|' + this.sortOrder[i].direction + (i + 1 < this.sortOrder.length ? ',' : '');
+        result += fieldName + "|" + this.sortOrder[i].direction + (i + 1 < this.sortOrder.length ? "," : "");
       }
 
       return result;
     },
     extractName: function extractName(string) {
-      return string.split(':')[0].trim();
+      return string.split(":")[0].trim();
     },
     extractArgs: function extractArgs(string) {
-      return string.split(':')[1];
+      return string.split(":")[1];
     },
     isSortable: function isSortable(field) {
-      return !(typeof field.sortField === 'undefined');
+      return !(typeof field.sortField === "undefined");
     },
     isInCurrentSortGroup: function isInCurrentSortGroup(field) {
       return this.currentSortOrderPosition(field) !== false;
     },
     hasSortableIcon: function hasSortableIcon(field) {
-      return this.isSortable(field) && this.css.sortableIcon != '';
+      return this.isSortable(field) && this.css.sortableIcon != "";
     },
     currentSortOrderPosition: function currentSortOrderPosition(field) {
       if (!this.isSortable(field)) {
@@ -2851,7 +2851,7 @@ exports.default = {
     orderBy: function orderBy(field, event) {
       if (!this.isSortable(field)) return;
 
-      var key = this.multiSortKey.toLowerCase() + 'Key';
+      var key = this.multiSortKey.toLowerCase() + "Key";
 
       if (this.multiSort && event[key]) {
         this.multiColumnSort(field);
@@ -2871,11 +2871,11 @@ exports.default = {
         this.sortOrder.push({
           field: field.name,
           sortField: field.sortField,
-          direction: 'asc'
+          direction: "asc"
         });
       } else {
-        if (this.sortOrder[i].direction === 'asc') {
-          this.sortOrder[i].direction = 'desc';
+        if (this.sortOrder[i].direction === "asc") {
+          this.sortOrder[i].direction = "desc";
         } else {
           this.sortOrder.splice(i, 1);
         }
@@ -2889,26 +2889,26 @@ exports.default = {
       this.sortOrder.splice(1);
 
       if (this.fieldIsInSortOrderPosition(field, 0)) {
-        this.sortOrder[0].direction = this.sortOrder[0].direction === 'asc' ? 'desc' : 'asc';
+        this.sortOrder[0].direction = this.sortOrder[0].direction === "asc" ? "desc" : "asc";
       } else {
-        this.sortOrder[0].direction = 'asc';
+        this.sortOrder[0].direction = "asc";
       }
       this.sortOrder[0].field = field.name;
       this.sortOrder[0].sortField = field.sortField;
     },
     clearSortOrder: function clearSortOrder() {
       this.sortOrder.push({
-        field: '',
-        sortField: '',
-        direction: 'asc'
+        field: "",
+        sortField: "",
+        direction: "asc"
       });
     },
     sortClass: function sortClass(field) {
-      var cls = '';
+      var cls = "";
       var i = this.currentSortOrderPosition(field);
 
       if (i !== false) {
-        cls = this.sortOrder[i].direction == 'asc' ? this.css.ascendingClass : this.css.descendingClass;
+        cls = this.sortOrder[i].direction == "asc" ? this.css.ascendingClass : this.css.descendingClass;
       }
 
       return cls;
@@ -2918,7 +2918,7 @@ exports.default = {
       var i = this.currentSortOrderPosition(field);
 
       if (i !== false) {
-        cls = this.sortOrder[i].direction == 'asc' ? this.css.ascendingIcon : this.css.descendingIcon;
+        cls = this.sortOrder[i].direction == "asc" ? this.css.ascendingIcon : this.css.descendingIcon;
       }
 
       return cls;
@@ -2945,14 +2945,14 @@ exports.default = {
     callCallback: function callCallback(field, item) {
       if (!this.hasCallback(field)) return;
 
-      if (typeof field.callback == 'function') {
+      if (typeof field.callback == "function") {
         return field.callback(this.getObjectValue(item, field.name));
       }
 
-      var args = field.callback.split('|');
+      var args = field.callback.split("|");
       var func = args.shift();
 
-      if (typeof this.$parent[func] === 'function') {
+      if (typeof this.$parent[func] === "function") {
         var value = this.getObjectValue(item, field.name);
 
         return args.length > 0 ? this.$parent[func].apply(this.$parent, [value].concat(args)) : this.$parent[func].call(this.$parent, value);
@@ -2961,13 +2961,13 @@ exports.default = {
       return null;
     },
     getObjectValue: function getObjectValue(object, path, defaultValue) {
-      defaultValue = typeof defaultValue === 'undefined' ? null : defaultValue;
+      defaultValue = typeof defaultValue === "undefined" ? null : defaultValue;
 
       var obj = object;
-      if (path.trim() != '') {
-        var keys = path.split('.');
+      if (path.trim() != "") {
+        var keys = path.split(".");
         keys.forEach(function (key) {
-          if (obj !== null && typeof obj[key] !== 'undefined' && obj[key] !== null) {
+          if (obj !== null && typeof obj[key] !== "undefined" && obj[key] !== null) {
             obj = obj[key];
           } else {
             obj = defaultValue;
@@ -2992,7 +2992,7 @@ exports.default = {
       } else {
         this.unselectId(key);
       }
-      this.$emit('vuetable:checkbox-toggled', isChecked, dataItem);
+      this.$emit("vuetable:checkbox-toggled", isChecked, dataItem);
     },
     selectId: function selectId(key) {
       if (!this.isSelectedRow(key)) {
@@ -3018,7 +3018,7 @@ exports.default = {
 
       var self = this;
       var idColumn = this.trackBy;
-      var selector = 'th.vuetable-th-checkbox-' + idColumn + ' input[type=checkbox]';
+      var selector = "th.vuetable-th-checkbox-" + idColumn + " input[type=checkbox]";
       var els = document.querySelectorAll(selector);
 
       if (els.forEach === undefined) els.forEach = function (cb) {
@@ -3060,7 +3060,7 @@ exports.default = {
           self.unselectId(dataItem[idColumn]);
         });
       }
-      this.$emit('vuetable:checkbox-toggled-all', isChecked);
+      this.$emit("vuetable:checkbox-toggled-all", isChecked);
     },
     gotoPreviousPage: function gotoPreviousPage() {
       if (this.currentPage > 1) {
@@ -3116,9 +3116,9 @@ exports.default = {
       this.tableFields[index].visible = !this.tableFields[index].visible;
     },
     renderIconTag: function renderIconTag(classes) {
-      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
 
-      return typeof this.css.renderIcon === 'undefined' ? '<i class="' + classes.join(' ') + '" ' + options + '></i>' : this.css.renderIcon(classes, options);
+      return typeof this.css.renderIcon === "undefined" ? "<i class=\"" + classes.join(" ") + "\" " + options + "></i>" : this.css.renderIcon(classes, options);
     },
     makePagination: function makePagination() {
       var total = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
@@ -3131,14 +3131,14 @@ exports.default = {
       currentPage = currentPage === null ? this.currentPage : currentPage;
 
       return {
-        'total': total,
-        'per_page': perPage,
-        'current_page': currentPage,
-        'last_page': Math.ceil(total / perPage) || 0,
-        'next_page_url': '',
-        'prev_page_url': '',
-        'from': (currentPage - 1) * perPage + 1,
-        'to': Math.min(currentPage * perPage, total)
+        total: total,
+        per_page: perPage,
+        current_page: currentPage,
+        last_page: Math.ceil(total / perPage) || 0,
+        next_page_url: "",
+        prev_page_url: "",
+        from: (currentPage - 1) * perPage + 1,
+        to: Math.min(currentPage * perPage, total)
       };
     },
     normalizeSortOrder: function normalizeSortOrder() {
@@ -3149,7 +3149,7 @@ exports.default = {
     callDataManager: function callDataManager() {
       if (this.dataManager === null && this.data === null) return;
 
-      if (Array.isArray(this.data)) {
+      if (Array.isArray(this.data) || this.data && this.data.data && Array.isArray(this.data.data)) {
         this.setData(this.data);
       } else {
         this.normalizeSortOrder();
@@ -3157,41 +3157,41 @@ exports.default = {
       }
     },
     onRowClass: function onRowClass(dataItem, index) {
-      if (this.rowClassCallback !== '') {
+      if (this.rowClassCallback !== "") {
         this.warn('"row-class-callback" prop is deprecated, please use "row-class" prop instead.');
         return;
       }
 
-      if (typeof this.rowClass === 'function') {
+      if (typeof this.rowClass === "function") {
         return this.rowClass(dataItem, index);
       }
 
       return this.rowClass;
     },
     onRowChanged: function onRowChanged(dataItem) {
-      this.fireEvent('row-changed', dataItem);
+      this.fireEvent("row-changed", dataItem);
       return true;
     },
     onRowClicked: function onRowClicked(dataItem, event) {
-      this.$emit(this.eventPrefix + 'row-clicked', dataItem, event);
+      this.$emit(this.eventPrefix + "row-clicked", dataItem, event);
       return true;
     },
     onRowDoubleClicked: function onRowDoubleClicked(dataItem, event) {
-      this.$emit(this.eventPrefix + 'row-dblclicked', dataItem, event);
+      this.$emit(this.eventPrefix + "row-dblclicked", dataItem, event);
     },
     onDetailRowClick: function onDetailRowClick(dataItem, event) {
-      this.$emit(this.eventPrefix + 'detail-row-clicked', dataItem, event);
+      this.$emit(this.eventPrefix + "detail-row-clicked", dataItem, event);
     },
     onCellClicked: function onCellClicked(dataItem, field, event) {
-      this.$emit(this.eventPrefix + 'cell-clicked', dataItem, field, event);
+      this.$emit(this.eventPrefix + "cell-clicked", dataItem, field, event);
     },
     onCellDoubleClicked: function onCellDoubleClicked(dataItem, field, event) {
-      this.$emit(this.eventPrefix + 'cell-dblclicked', dataItem, field, event);
+      this.$emit(this.eventPrefix + "cell-dblclicked", dataItem, field, event);
     },
     changePage: function changePage(page) {
-      if (page === 'prev') {
+      if (page === "prev") {
         this.gotoPreviousPage();
-      } else if (page === 'next') {
+      } else if (page === "next") {
         this.gotoNextPage();
       } else {
         this.gotoPage(page);
@@ -3207,20 +3207,20 @@ exports.default = {
     resetData: function resetData() {
       this.tableData = null;
       this.tablePagination = null;
-      this.fireEvent('data-reset');
+      this.fireEvent("data-reset");
     }
   },
   watch: {
-    'multiSort': function multiSort(newVal, oldVal) {
+    multiSort: function multiSort(newVal, oldVal) {
       if (newVal === false && this.sortOrder.length > 1) {
         this.sortOrder.splice(1);
         this.loadData();
       }
     },
-    'apiUrl': function apiUrl(newVal, oldVal) {
+    apiUrl: function apiUrl(newVal, oldVal) {
       if (this.reactiveApiUrl && newVal !== oldVal) this.refresh();
     },
-    'data': function data(newVal, oldVal) {
+    data: function data(newVal, oldVal) {
       this.setData(newVal);
     }
   }
